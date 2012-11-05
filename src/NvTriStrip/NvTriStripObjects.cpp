@@ -1,10 +1,11 @@
 
-#pragma warning( disable : 4786 )  
+//#pragma warning( disable : 4786 )  
 
 #include <assert.h>
 #include <set>
 #include "NvTriStripObjects.h"
 #include "VertexCache.h"
+using namespace std;
 
 #define CACHE_INEFFICIENCY 6
 
@@ -97,7 +98,8 @@ void NvStripifier::BuildStripifyInfo(NvFaceInfoVec &faceInfos, NvEdgeInfoVec &ed
 	
 	// we actually resize the edge infos, so we must initialize to NULL
 	edgeInfos.resize(maxIndex + 1);
-	for (int i = 0; i < maxIndex + 1; i++)
+	int i;
+	for (i = 0; i < maxIndex + 1; i++)
 		edgeInfos[i] = NULL;
 	
 	// iterate through the triangles of the triangle list
@@ -715,7 +717,8 @@ void NvStripInfo::Combine(const NvFaceInfoVec &forward, const NvFaceInfoVec &bac
 	
 	// add backward faces
 	int numFaces = backward.size();
-	for (int i = numFaces - 1; i >= 0; i--)
+	int i;
+	for (i = numFaces - 1; i >= 0; i--)
 		m_faces.push_back(backward[i]);
 	
 	// add forward faces
@@ -871,7 +874,7 @@ void NvStripifier::RemoveSmallStrips(NvStripInfoVec& allStrips, NvStripInfoVec& 
 		
 		int bestNumHits = -1;
 		int numHits;
-		int bestIndex;
+		int bestIndex = 0;
 		
 		while(1)
 		{
@@ -1136,7 +1139,8 @@ void NvStripifier::Stripify(const WordVec &in_indices, const int in_cacheSize,
 	SplitUpStripsAndOptimize(allStrips, outStrips, allEdgeInfos, outFaceList);
 
 	//clean up
-	for(int i = 0; i < allStrips.size(); i++)
+	int i;
+	for(i = 0; i < allStrips.size(); i++)
 	{
 		delete allStrips[i];
 	}
@@ -1193,7 +1197,8 @@ void NvStripifier::SplitUpStripsAndOptimize(NvStripInfoVec &allStrips, NvStripIn
 	NvStripInfoVec tempStrips;
 	
 	//split up strips into threshold-sized pieces
-	for(int i = 0; i < allStrips.size(); i++)
+	int i;
+	for(i = 0; i < allStrips.size(); i++)
 	{
 		NvStripInfo* currentStrip;
 		NvStripStartInfo startInfo(NULL, NULL, false);
@@ -1212,7 +1217,8 @@ void NvStripifier::SplitUpStripsAndOptimize(NvStripInfoVec &allStrips, NvStripIn
 			int numLeftover = actualStripSize /*allStrips[i]->m_faces.size()*/ % threshold;
 
 			int degenerateCount = 0;
-			for(int j = 0; j < numTimes; j++)
+			int j;
+			for(j = 0; j < numTimes; j++)
 			{
 				currentStrip = new NvStripInfo(startInfo, 0, -1);
 				
@@ -1338,7 +1344,7 @@ void NvStripifier::SplitUpStripsAndOptimize(NvStripInfoVec &allStrips, NvStripIn
 		
 		float bestNumHits = -1.0f;
 		float numHits;
-		int bestIndex;
+		int bestIndex = 0;
 		bool done = false;
 		
 		int firstIndex = 0;
@@ -1608,7 +1614,8 @@ void NvStripifier::FindAllStrips(NvStripInfoVec &allStrips,
 		NvStripInfoVec *experiments = new NvStripInfoVec [numSamples * 6];
 		int experimentIndex = 0;
 		std::set   <NvFaceInfo*>  resetPoints;
-		for (int i = 0; i < numSamples; i++)
+		int i;
+		for (i = 0; i < numSamples; i++)
 		{
 			
 			// Try to find another good reset point.

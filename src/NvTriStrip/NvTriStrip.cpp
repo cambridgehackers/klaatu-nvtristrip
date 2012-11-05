@@ -85,7 +85,8 @@ void SetMinStripSize(const unsigned int _minStripSize)
 void Cleanup(NvStripInfoVec& tempStrips, NvFaceInfoVec& tempFaces)
 {
 	//delete strips
-	for(int i = 0; i < tempStrips.size(); i++)
+	int i;
+	for(i = 0; i < tempStrips.size(); i++)
 	{
 		for(int j = 0; j < tempStrips[i]->m_faces.size(); j++)
 		{
@@ -214,7 +215,8 @@ bool GenerateStrips(const unsigned short* in_indices, const unsigned int in_numI
 	tempIndices.resize(in_numIndices);
 	unsigned short maxIndex = 0;
 	unsigned short minIndex = 0xFFFF;
-	for(int i = 0; i < in_numIndices; i++)
+	int i;
+	for(i = 0; i < in_numIndices; i++)
 	{
 		tempIndices[i] = in_indices[i];
 		if (in_indices[i] > maxIndex)
@@ -243,7 +245,8 @@ bool GenerateStrips(const unsigned short* in_indices, const unsigned int in_numI
 
 		//count the total number of indices
 		unsigned int numIndices = 0;
-		for(int i = 0; i < tempStrips.size(); i++)
+		int i;
+		for(i = 0; i < tempStrips.size(); i++)
 		{
 			numIndices += tempStrips[i]->m_faces.size() * 3;
 		}
@@ -308,7 +311,8 @@ bool GenerateStrips(const unsigned short* in_indices, const unsigned int in_numI
 			if(!bStitchStrips)
 			{
 				//if we've got multiple strips, we need to figure out the correct length
-				for(int i = startingLoc; i < stripIndices.size(); i++)
+				int i;
+				for(i = startingLoc; i < stripIndices.size(); i++)
 				{
 					if(stripIndices[i] == -1)
 						break;
@@ -357,7 +361,8 @@ bool GenerateStrips(const unsigned short* in_indices, const unsigned int in_numI
 		std::vector<NvFaceInfo> in_bins[NUMBINS];
 		
 		//hash input indices on first index
-		for (int i = 0; i < in_numIndices; i += 3)
+		int i;
+		for (i = 0; i < in_numIndices; i += 3)
 		{
 			NvFaceInfo faceInfo(in_indices[i], in_indices[i + 1], in_indices[i + 2]);
 			in_bins[in_indices[i] % NUMBINS].push_back(faceInfo);
